@@ -1,22 +1,14 @@
-int jump(const int *nums, const int numsSize)
-{
-    if(numsSize < 2) 
-    {
-        return 0;
-    }
-    
-    int maxReachableIndex = nums[0];
-    int limit = nums[0];
-    int minJumps = 1;
-    for(int i=1; i<numsSize; i++){
-
-        if(i > limit)
-        {
-            minJumps++;
-            limit = maxReachableIndex;
+int jump(const int* nums, const int numsSize){
+    int max_pos = 0;
+    int count = 0;
+    int next_max = 0;
+    for (register int i = 0; i < numsSize; ++i) {
+        if (max_pos < i) {
+            count++;
+            max_pos = next_max;
         }
-        maxReachableIndex = (maxReachableIndex > i + nums[i]) ? maxReachableIndex : i + nums[i];
+        int cur = nums[i] + i;
+        if (cur > next_max) next_max = cur;
     }
-
-    return minJumps;
+    return count;
 }
